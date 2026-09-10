@@ -81,10 +81,10 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const drawNewPassage = useCallback(async (): Promise<GospelItem> => {
-    const item = drawRandomItem(lastItemId);
+    const item = drawRandomItem(lastItemId, settings.activeCategories);
     await recordHistoryFor(item.id);
     return item;
-  }, [lastItemId, recordHistoryFor]);
+  }, [lastItemId, settings.activeCategories, recordHistoryFor]);
 
   const toggleFavoriteFor = useCallback(async (itemId: number) => {
     const updated = await toggleFavoriteStorage(itemId);
@@ -164,7 +164,7 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
   return <AppDataContext.Provider value={value}>{children}</AppDataContext.Provider>;
 }
 
-export function useAppData(): AppAppDataContextValue {
+export function useAppData(): AppDataContextValue {
   const ctx = useContext(AppDataContext);
   if (!ctx) throw new Error("useAppData deve ser usado dentro de um AppDataProvider");
   return ctx;

@@ -1,5 +1,14 @@
+export type ContentCategory =
+  | "espiritismo"
+  | "biblia"
+  | "filosofia"
+  | "pensadores"
+  | "reflexoes";
+
 export interface GospelItem {
   id: number;
+  category: ContentCategory;
+  source?: string; // ex: "Salmos 23:1-3", "Marco Aurélio", "Sêneca"
   chapterNumber: number;
   chapterTitle: string;
   itemNumber: number;
@@ -31,6 +40,7 @@ export interface AppSettings {
   dailyReminderMinute: number;
   fontSize: FontSizeOption;
   themePreference: "light" | "dark" | "system";
+  activeCategories: ContentCategory[];
 }
 
 export type RootStackParamList = {

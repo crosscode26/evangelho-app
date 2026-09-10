@@ -5,7 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import { useAppTheme } from "@/context/ThemeContext";
 import { useAppData } from "@/context/AppDataContext";
 import { fonts } from "@/theme/typography";
-import { FontSizeOption } from "@/types";
+import { ContentCategory, FontSizeOption } from "@/types";
 
 const FONT_OPTIONS: { key: FontSizeOption; label: string }[] = [
   { key: "P", label: "P" },
@@ -20,13 +20,24 @@ const THEME_OPTIONS: { key: "light" | "dark" | "system"; label: string }[] = [
   { key: "dark", label: "Escuro" },
 ];
 
+const CATEGORY_OPTIONS: { key: ContentCategory; label: string; description: string }[] = [
+  { key: "espiritismo", label: "Espiritismo", description: "O Evangelho Segundo o Espiritismo" },
+  { key: "biblia", label: "Bíblia", description: "Salmos, Provérbios e Evangelhos" },
+  { key: "filosofia", label: "Filosofia", description: "Estoicos e pensadores clássicos" },
+  { key: "pensadores", label: "Pensadores", description: "Frases de grandes pensadores" },
+  { key: "reflexoes", label: "Reflexões", description: "Textos autorais do app" },
+];
+
 export function SettingsScreen() {
   const { colors } = useAppTheme();
   const { settings, updateSettings } = useAppData();
   const [showPicker, setShowPicker] = useState(false);
 
+  const activeCategories = settings.activeCategories ?? [];
+  const activeCount = activeCategories.length;
+
   const reminderDate = new Date();
-  reminderDate.setHours(settings.dailyReminderHour, settings.dailyReminderMinute, 0, 0);
+  reminderDate.setHours(settings.dailyReminderHour ?? 7, settings.dailyReminderMinute ?? 0, 0, 0);
 
   const handleTimeChange = (event: DateTimePickerEvent, selected?: Date) => {
     if (Platform.OS === "android") setShowPicker(false);
@@ -35,6 +46,21 @@ export function SettingsScreen() {
       dailyReminderHour: selected.getHours(),
       dailyReminderMinute: selected.getMinutes(),
     });
+  };
+
+  const toggleCategory = (category: ContentCategory) => {
+    const isActive = activeCategories.includes(category);
+    let updated: ContentCategory[];
+
+    if (isActive) {
+      // Impede desmarcar se houver apenas 1 categoria ativa
+      if (activeCount <= 1) return;
+      updated = activeCategories.filter((c) => c !== category);
+    } else {
+      updated = [...activeCategories, category];
+    }
+
+    updateSettings({ activeCategories: updated });
   };
 
   return (
@@ -87,6 +113,34 @@ export function SettingsScreen() {
           )}
         </Section>
 
+        <Section title="Conteúdo" colors={colors}>
+          <Text style={[styles.rowSubtitle, { color: colors.textMuted, marginBottom: 14 }]}>
+            Escolha quais tipos de mensagem podem aparecer no sorteio (mínimo 1)
+          </Text>
+          {CATEGORY_OPTIONS.map((option) => {
+            const isActive = activeCategories.includes(option.key);
+            const isLastActive = isActive && activeCount === 1;
+
+            return (
+              <View key={option.key} style={styles.categoryRow}>
+                <View style={styles.rowLeft}>
+                  <Text style={[styles.rowLabel, { color: colors.text }]}>{option.label}</Text>
+                  <Text style={[styles.rowSubtitle, { color: colors.textMuted }]}>
+                    {option.description}
+                  </Text>
+                </View>
+                <Switch
+                  value={isActive}
+                  disabled={isLastActive}
+                  onValueChange={() => toggleCategory(option.key)}
+                  trackColor={{ false: colors.border, true: colors.accent }}
+                  thumbColor="#FFFFFF"
+                />
+              </View>
+            );
+          })}
+        </Section>
+
         <Section title="Aparência" colors={colors}>
           <Text style={[styles.rowLabel, { color: colors.text, marginBottom: 12 }]}>Tema</Text>
           <View style={styles.chipRow}>
@@ -120,7 +174,7 @@ export function SettingsScreen() {
         </Section>
 
         <Text style={[styles.footerNote, { color: colors.textMuted }]}>
-          O Evangelho Segundo o Espiritismo{"\n"}Versão 1.0.0
+          Reflexão Diária{"\n"}Versão 1.0.0
         </Text>
       </ScrollView>
     </SafeAreaView>
@@ -216,6 +270,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  categoryRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 14,
   },
   rowLeft: {
     flex: 1,

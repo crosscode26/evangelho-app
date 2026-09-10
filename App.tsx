@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
   useFonts as useLoraFonts,
   Lora_400Regular,
@@ -56,10 +57,12 @@ function AppShell() {
 
 export default function App() {
   return (
-    <AppDataProvider>
-      <ThemeProvider>
-        <AppShell />
-      </ThemeProvider>
-    </AppDataProvider>
+    <SafeAreaProvider>
+      <AppDataProvider>
+        <ThemeProvider>
+          <AppShell />
+        </ThemeProvider>
+      </AppDataProvider>
+    </SafeAreaProvider>
   );
 }

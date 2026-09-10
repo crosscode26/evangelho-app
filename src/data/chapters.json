@@ -5,6 +5,7 @@
     "items": [
       {
         "id": 1,
+        "category": "espiritismo",
         "chapterNumber": 1,
         "chapterTitle": "Não vim destruir a lei",
         "itemNumber": 1,
@@ -13,6 +14,7 @@
       },
       {
         "id": 2,
+        "category": "espiritismo",
         "chapterNumber": 1,
         "chapterTitle": "Não vim destruir a lei",
         "itemNumber": 2,
@@ -27,6 +29,7 @@
     "items": [
       {
         "id": 3,
+        "category": "espiritismo",
         "chapterNumber": 5,
         "chapterTitle": "Ninguém pode servir a dois senhores",
         "itemNumber": 1,
@@ -35,6 +38,7 @@
       },
       {
         "id": 4,
+        "category": "espiritismo",
         "chapterNumber": 5,
         "chapterTitle": "Ninguém pode servir a dois senhores",
         "itemNumber": 2,
@@ -49,6 +53,7 @@
     "items": [
       {
         "id": 5,
+        "category": "espiritismo",
         "chapterNumber": 10,
         "chapterTitle": "Fora da caridade não há salvação",
         "itemNumber": 1,
@@ -57,6 +62,7 @@
       },
       {
         "id": 6,
+        "category": "espiritismo",
         "chapterNumber": 10,
         "chapterTitle": "Fora da caridade não há salvação",
         "itemNumber": 2,
@@ -65,6 +71,7 @@
       },
       {
         "id": 7,
+        "category": "espiritismo",
         "chapterNumber": 10,
         "chapterTitle": "Fora da caridade não há salvação",
         "itemNumber": 3,
@@ -79,6 +86,7 @@
     "items": [
       {
         "id": 8,
+        "category": "espiritismo",
         "chapterNumber": 17,
         "chapterTitle": "Bem-aventurados os aflitos",
         "itemNumber": 1,
@@ -87,6 +95,7 @@
       },
       {
         "id": 9,
+        "category": "espiritismo",
         "chapterNumber": 17,
         "chapterTitle": "Bem-aventurados os aflitos",
         "itemNumber": 2,
@@ -101,6 +110,7 @@
     "items": [
       {
         "id": 10,
+        "category": "espiritismo",
         "chapterNumber": 25,
         "chapterTitle": "Bem-aventurados os que choram",
         "itemNumber": 1,
@@ -109,11 +119,136 @@
       },
       {
         "id": 11,
+        "category": "espiritismo",
         "chapterNumber": 25,
         "chapterTitle": "Bem-aventurados os que choram",
         "itemNumber": 2,
         "itemTitle": "O consolo pela certeza da vida futura",
         "content": "Grande parte do desespero humano diante da dor e da morte nasce da crença de que tudo termina no túmulo. Quando se compreende, pela razão e pelas provas oferecidas pelo estudo espírita, que a vida da alma prossegue após a morte do corpo, e que os laços de afeto verdadeiro não se desfazem com a separação física, o choro perde seu caráter de desespero absoluto e se transforma em saudade serena, temperada pela esperança do reencontro e pela certeza de que o sofrimento presente tem um sentido dentro do plano mais amplo da evolução espiritual."
+      }
+    ]
+  },
+  {
+    "chapterNumber": 100,
+    "chapterTitle": "Salmos",
+    "items": [
+      {
+        "id": 100,
+        "category": "biblia",
+        "source": "Salmos 23:1-4",
+        "chapterNumber": 100,
+        "chapterTitle": "Salmos",
+        "itemNumber": 1,
+        "itemTitle": "O Senhor é o meu pastor",
+        "content": "O Senhor é o meu pastor, nada me faltará. Deitar-me faz em verdes pastos, guia-me mansamente a águas tranquilas. Refrigera a minha alma; guia-me pelas veredas da justiça, por amor do seu nome. Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo; a tua vara e o teu cajado me consolam."
+      },
+      {
+        "id": 101,
+        "category": "biblia",
+        "source": "Salmos 46:1",
+        "chapterNumber": 100,
+        "chapterTitle": "Salmos",
+        "itemNumber": 2,
+        "itemTitle": "Deus é o nosso refúgio",
+        "content": "Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia. Por isso não temeremos, ainda que a terra se mude, e ainda que os montes se transportem para o meio dos mares."
+      }
+    ]
+  },
+  {
+    "chapterNumber": 101,
+    "chapterTitle": "Provérbios",
+    "items": [
+      {
+        "id": 102,
+        "category": "biblia",
+        "source": "Provérbios 3:5-6",
+        "chapterNumber": 101,
+        "chapterTitle": "Provérbios",
+        "itemNumber": 1,
+        "itemTitle": "Confia no Senhor de todo o teu coração",
+        "content": "Confia no Senhor de todo o teu coração, e não te estribes no teu próprio entendimento. Reconhece-o em todos os teus caminhos, e ele endireitará as tuas veredas."
+      }
+    ]
+  },
+  {
+    "chapterNumber": 102,
+    "chapterTitle": "Evangelho de Mateus",
+    "items": [
+      {
+        "id": 103,
+        "category": "biblia",
+        "source": "Mateus 11:28",
+        "chapterNumber": 102,
+        "chapterTitle": "Evangelho de Mateus",
+        "itemNumber": 1,
+        "itemTitle": "Vinde a mim",
+        "content": "Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei. Tomai sobre vós o meu jugo, e aprendei de mim, que sou manso e humilde de coração; e encontrareis descanso para as vossas almas."
+      }
+    ]
+  },
+  {
+    "chapterNumber": 200,
+    "chapterTitle": "Meditações",
+    "items": [
+      {
+        "id": 200,
+        "category": "filosofia",
+        "source": "Marco Aurélio",
+        "chapterNumber": 200,
+        "chapterTitle": "Meditações",
+        "itemNumber": 1,
+        "itemTitle": "O que está em teu poder",
+        "content": "Não perturbes a ti mesmo pensando no todo da tua vida. Não deixes que a imaginação abranja de uma só vez todas as dificuldades diversas que provavelmente virão; mas, em cada situação presente, pergunta a ti mesmo: 'Que há nisso de insuportável que eu não possa suportar?'. Age apenas naquilo que está em teu poder: o teu próprio julgamento sobre as coisas, não as coisas em si."
+      },
+      {
+        "id": 201,
+        "category": "filosofia",
+        "source": "Marco Aurélio",
+        "chapterNumber": 200,
+        "chapterTitle": "Meditações",
+        "itemNumber": 2,
+        "itemTitle": "A serenidade diante do que não se controla",
+        "content": "Tens poder sobre a tua mente, não sobre os eventos externos. Percebe isso, e encontrarás força. A felicidade da tua vida depende da qualidade dos teus pensamentos."
+      }
+    ]
+  },
+  {
+    "chapterNumber": 201,
+    "chapterTitle": "Cartas a Lucílio",
+    "items": [
+      {
+        "id": 202,
+        "category": "filosofia",
+        "source": "Sêneca",
+        "chapterNumber": 201,
+        "chapterTitle": "Cartas a Lucílio",
+        "itemNumber": 1,
+        "itemTitle": "Sobre a brevidade da vida",
+        "content": "Não é que tenhamos pouco tempo, mas que perdemos muito dele. A vida é suficientemente longa, e nos foi dada com largueza suficiente para a realização das maiores coisas, se toda ela fosse bem administrada. Aprendemos para a vida inteira aquilo que deveríamos ter aprendido antes de precisar."
+      }
+    ]
+  },
+  {
+    "chapterNumber": 300,
+    "chapterTitle": "Reflexões do dia",
+    "items": [
+      {
+        "id": 300,
+        "category": "reflexoes",
+        "chapterNumber": 300,
+        "chapterTitle": "Reflexões do dia",
+        "itemNumber": 1,
+        "itemTitle": "Sobre recomeçar",
+        "content": "Cada amanhecer traz consigo a possibilidade silenciosa de recomeço. Não é preciso que o dia anterior tenha sido perfeito para que o de hoje seja bom; basta a disposição de dar o próximo passo com um pouco mais de consciência e um pouco menos de pressa. A vida não exige perfeição, apenas continuidade."
+      },
+      {
+        "id": 301,
+        "category": "reflexoes",
+        "chapterNumber": 300,
+        "chapterTitle": "Reflexões do dia",
+        "itemNumber": 2,
+        "itemTitle": "Sobre escutar",
+        "content": "Ouvir de verdade é um ato raro. Exige silenciar não apenas a boca, mas também o julgamento apressado que já formula resposta antes de compreender o que foi dito. Quem aprende a escutar sem pressa, escuta melhor a própria vida também."
       }
     ]
   }
