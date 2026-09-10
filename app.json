@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "O Evangelho Segundo o Espiritismo",
+    "slug": "evangelho-segundo-o-espiritismo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FAF6F0"
+    },
+    "assetBundlePatterns": ["*/"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.evangelho.espiritismo",
+      "infoPlist": {
+        "UIBackgroundModes": ["audio"],
+        "NSUserNotificationsUsageDescription": "Usamos notificações para lembrar você da leitura diária."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FAF6F0"
+      },
+      "package": "com.evangelho.espiritismo",
+      "permissions": ["SCHEDULE_EXACT_ALARM", "RECEIVE_BOOT_COMPLETED"]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#C9A24B"
+        }
+      ]
+    ]
+  }
+}
