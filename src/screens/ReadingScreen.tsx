@@ -156,38 +156,40 @@ export function ReadingScreen() {
             style={[styles.shareCard, { width: CARD_SIZE, height: CARD_SIZE }]}
           >
             <View style={styles.shareInner}>
-              {/* Cabeçalho com o nome do app */}
-              <View style={styles.shareHeader}>
-                <Text style={[styles.shareHeaderEmblem, { color: colors.accent }]}>✦</Text>
-                <Text style={[styles.shareHeaderText, { color: colors.textMuted }]}>
-                  Inspira
+              {/* Bloco Superior e Central */}
+              <View style={styles.shareContent}>
+                <View style={styles.shareHeader}>
+                  <Text style={[styles.shareHeaderEmblem, { color: colors.accent }]}>✦</Text>
+                  <Text style={[styles.shareHeaderText, { color: colors.textMuted }]}>
+                    Inspira
+                  </Text>
+                </View>
+
+                <View style={[styles.chapterBadge, { backgroundColor: colors.accent }]}>
+                  <Text style={styles.chapterBadgeText}>CAP. {item.chapterNumber}</Text>
+                </View>
+
+                <Text style={[styles.shareTitle, { color: colors.text }]} numberOfLines={2}>
+                  {item.itemTitle}
+                </Text>
+
+                {/* Limita as linhas para não invadir o rodapé */}
+                <Text
+                  style={[
+                    styles.shareBody,
+                    {
+                      color: colors.text,
+                      fontSize: shareBodyFontSize,
+                      lineHeight: shareBodyLineHeight,
+                    },
+                  ]}
+                  numberOfLines={11}
+                >
+                  {item.content}
                 </Text>
               </View>
 
-              <Text style={styles.quoteMark}>"</Text>
-
-              <View style={[styles.chapterBadge, { backgroundColor: colors.accent }]}>
-                <Text style={styles.chapterBadgeText}>CAP. {item.chapterNumber}</Text>
-              </View>
-
-              <Text style={[styles.shareTitle, { color: colors.text }]} numberOfLines={2}>
-                {item.itemTitle}
-              </Text>
-
-              <Text
-                style={[
-                  styles.shareBody,
-                  {
-                    color: colors.text,
-                    fontSize: shareBodyFontSize,
-                    lineHeight: shareBodyLineHeight,
-                  },
-                ]}
-              >
-                {item.content}
-              </Text>
-
-              {/* Rodapé com convite para baixar o app */}
+              {/* Rodapé Fixo no Fluxo */}
               <View style={styles.shareFooter}>
                 <View style={[styles.shareFooterLine, { backgroundColor: colors.border }]} />
                 <Image 
@@ -296,74 +298,73 @@ const styles = StyleSheet.create({
   },
   shareInner: {
     flex: 1,
-    paddingVertical: 72,
-    paddingHorizontal: 80,
+    paddingTop: 56,
+    paddingBottom: 48,
+    paddingHorizontal: 72,
+    justifyContent: "space-between", // Separa o conteúdo do rodapé perfeitamente
+    alignItems: "center",
+  },
+  shareContent: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    width: "100%",
   },
   shareHeader: {
-    position: "absolute",
-    top: 56,
     alignItems: "center",
+    marginBottom: 20,
   },
   shareHeaderEmblem: {
-    fontSize: 32,
-    marginBottom: 6,
+    fontSize: 28,
+    marginBottom: 4,
   },
   shareHeaderText: {
     fontFamily: fonts.sansSemiBold,
-    fontSize: 15,
+    fontSize: 14,
     letterSpacing: 3,
   },
-  quoteMark: {
-    fontFamily: fonts.serifBold,
-    fontSize: 140,
-    color: "#C9A24B",
-    opacity: 0.35,
-    lineHeight: 140,
-    marginBottom: -20,
-  },
   chapterBadge: {
-    paddingHorizontal: 28,
-    paddingVertical: 12,
+    paddingHorizontal: 24,
+    paddingVertical: 10,
     borderRadius: 40,
-    marginBottom: 32,
+    marginBottom: 20,
   },
   chapterBadgeText: {
     fontFamily: fonts.sansSemiBold,
-    fontSize: 22,
+    fontSize: 20,
     letterSpacing: 1,
     color: "#FFFFFF",
   },
   shareTitle: {
     fontFamily: fonts.serifBold,
-    fontSize: 42,
-    lineHeight: 54,
+    fontSize: 36,
+    lineHeight: 46,
     textAlign: "center",
-    marginBottom: 32,
+    marginBottom: 20,
   },
   shareBody: {
     fontFamily: fonts.serif,
     textAlign: "center",
   },
   shareFooter: {
-    position: "absolute",
-    bottom: 64,
     alignItems: "center",
+    width: "100%",
+    marginTop: 16,
   },
   shareFooterLine: {
     width: 60,
-    height: 2,
-    marginBottom: 20,
+    height: 1,
+    marginBottom: 16,
   },
-  shareFooterText: {
-    fontFamily: fonts.serifBold,
-    fontSize: 26,
-    marginBottom: 6,
+  shareFooterLogo: {
+    width: 120,
+    height: 40,
+    alignSelf: "center",
+    marginVertical: 6,
   },
   shareFooterSubtext: {
     fontFamily: fonts.sans,
-    fontSize: 16,
+    fontSize: 15,
     letterSpacing: 0.5,
   },
 });

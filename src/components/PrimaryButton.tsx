@@ -1,15 +1,16 @@
 import React from "react";
 import { Pressable, Text, StyleSheet, ViewStyle, Animated } from "react-native";
 import * as Haptics from "expo-haptics";
-import { Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { useAppTheme } from "@/context/ThemeContext";
 import { fonts } from "@/theme/typography";
 
 interface PrimaryButtonProps {
   label: string;
   onPress: () => void;
-  icon?: keyof typeof Feather.glyphMap;
-  variant?: "filled" | "outline";
+  icon?: keyof typeof Ionicons.glyphMap;
+  variant?: "filled" | "outline" | "circular";
+  size?: number; // Tamanho para variante circular
   style?: ViewStyle;
   disabled?: boolean;
 }
@@ -19,6 +20,7 @@ export function PrimaryButton({
   onPress,
   icon,
   variant = "filled",
+  size = 160,
   style,
   disabled,
 }: PrimaryButtonProps) {
@@ -26,7 +28,7 @@ export function PrimaryButton({
   const scale = React.useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
-    Animated.spring(scale, { toValue: 0.96, useNativeDriver: true, speed: 40 }).start();
+    Animated.spring(scale, { toValue: 0.94, useNativeDriver: true, speed: 40 }).start();
   };
   const handlePressOut = () => {
     Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 30 }).start();
@@ -38,7 +40,52 @@ export function PrimaryButton({
   };
 
   const isOutline = variant === "outline";
+  const isCircular = variant === "circular";
 
+    if (isCircular) {
+    return (
+      <Animated.View
+        style={[
+          styles.circularWrapper,
+          {
+            width: size,
+            height: size,
+            transform: [{ scale }],
+          },
+          style,
+        ]}
+      >
+        <Pressable
+          onPress={handlePress}
+          onPressIn={handlePressIn}
+          onPressOut={handlePressOut}
+          disabled={disabled}
+          style={[
+            styles.circularButton,
+            {
+              width: size,
+              height: size,
+              borderRadius: size / 2, // Metade exata para círculo perfeito
+              backgroundColor: colors.accent,
+              opacity: disabled ? 0.6 : 1,
+            },
+          ]}
+        >
+          {icon && (
+            <Ionicons
+              name={icon}
+              size={26}
+              color="#FFFFFF"
+              style={styles.iconCircular}
+            />
+          )}
+          <Text style={styles.labelCircular}>{label}</Text>
+        </Pressable>
+      </Animated.View>
+    );
+  }
+
+  // Estilo Retangular Padrão
   return (
     <Animated.View style={[{ transform: [{ scale }] }, style]}>
       <Pressable
@@ -57,7 +104,7 @@ export function PrimaryButton({
         ]}
       >
         {icon && (
-          <Feather
+          <Ionicons
             name={icon}
             size={20}
             color={isOutline ? colors.accent : "#FFFFFF"}
@@ -91,26 +138,29 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: fonts.sansSemiBold,
-    fontSize: 16,
+    fontSize: 12,
   },
   circularWrapper: {
     alignSelf: "center",
-    marginVertical: 32,
+    marginVertical: 24,
+    
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
   },
   circularButton: {
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
-    elevation: 8,
+    overflow: "hidden", 
   },
   iconCircular: {
-    marginBottom: 6,
+    marginBottom: 4,
   },
   labelCircular: {
     fontFamily: fonts.sansSemiBold,
-    fontSize: 15,
+    fontSize: 14,
+    color: "#FFFFFF",
   },
 });

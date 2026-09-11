@@ -45,9 +45,21 @@ export function RootNavigator() {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          animation: "fade", 
+          animationDuration: 350, 
+        }}
+      >
         <Stack.Screen name="MainTabs" component={BottomTabs} />
-        <Stack.Screen name="Reading" component={ReadingScreen} />
+        <Stack.Screen 
+          name="Reading" 
+          component={ReadingScreen}
+          options={{
+            animation: "fade_from_bottom", 
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

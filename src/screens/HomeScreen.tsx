@@ -8,6 +8,7 @@ import { PrimaryButton } from "@/components/PrimaryButton";
 import { fonts } from "@/theme/typography";
 import { RootStackParamList } from "@/types";
 
+
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 export function HomeScreen() {
@@ -46,9 +47,9 @@ export function HomeScreen() {
 
         <PrimaryButton
           label={isDrawing ? "Consultando…" : "Consultar"}
-          icon="shuffle"
+          icon="sparkles"
           variant="circular"
-          size={170}
+          size={120}
           onPress={handleDraw}
           disabled={isDrawing}
         />
