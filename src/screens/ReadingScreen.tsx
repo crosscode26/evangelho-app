@@ -20,12 +20,14 @@ import { getItemById } from "@/utils/random";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { fonts, readingFontSizes } from "@/theme/typography";
 import { FontSizeOption, RootStackParamList } from "@/types";
+import {Image} from "react-native";
 
 type ReadingRoute = RouteProp<RootStackParamList, "Reading">;
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 const FONT_STEPS: FontSizeOption[] = ["P", "M", "G", "GG"];
 const CARD_SIZE = 1080; // tamanho final real do card, já no valor de exportação
+const logoImage = require("../../assets/logo.png")
 
 export function ReadingScreen() {
   const route = useRoute<ReadingRoute>();
@@ -158,7 +160,7 @@ export function ReadingScreen() {
               <View style={styles.shareHeader}>
                 <Text style={[styles.shareHeaderEmblem, { color: colors.accent }]}>✦</Text>
                 <Text style={[styles.shareHeaderText, { color: colors.textMuted }]}>
-                  REFLEXÃO DIÁRIA
+                  Inspira
                 </Text>
               </View>
 
@@ -188,11 +190,13 @@ export function ReadingScreen() {
               {/* Rodapé com convite para baixar o app */}
               <View style={styles.shareFooter}>
                 <View style={[styles.shareFooterLine, { backgroundColor: colors.border }]} />
-                <Text style={[styles.shareFooterText, { color: colors.text }]}>
-                  Reflexão Diária
-                </Text>
+                <Image 
+                  source={logoImage} 
+                  style={styles.shareFooterLogo} 
+                  resizeMode="contain" 
+                />
                 <Text style={[styles.shareFooterSubtext, { color: colors.textMuted }]}>
-                  Sorteie sua mensagem diária
+                  Sintonize sua intençao e receba o conselho do dia
                 </Text>
               </View>
             </View>
@@ -204,6 +208,12 @@ export function ReadingScreen() {
 }
 
 const styles = StyleSheet.create({
+  shareFooterLogo: {
+    width: 120,
+    height: 40,
+    alignSelf: 'center',
+    marginVertical: 8,
+  },
   container: {
     flex: 1,
   },

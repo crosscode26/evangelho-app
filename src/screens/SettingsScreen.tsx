@@ -75,7 +75,7 @@ export function SettingsScreen() {
               <>
                 <Text style={[styles.rowLabel, { color: colors.text }]}>Notificação diária</Text>
                 <Text style={[styles.rowSubtitle, { color: colors.textMuted }]}>
-                  Receba uma mensagem para sortear todos os dias
+                  Receba uma mensagem para inspirar todos os dias
                 </Text>
               </>
             }
@@ -115,7 +115,7 @@ export function SettingsScreen() {
 
         <Section title="Conteúdo" colors={colors}>
           <Text style={[styles.rowSubtitle, { color: colors.textMuted, marginBottom: 14 }]}>
-            Escolha quais tipos de mensagem podem aparecer no sorteio (mínimo 1)
+            Escolha quais pilares de reflexão podem inspirar o seu dia (mínimo 1)
           </Text>
           {CATEGORY_OPTIONS.map((option) => {
             const isActive = activeCategories.includes(option.key);
@@ -174,7 +174,7 @@ export function SettingsScreen() {
         </Section>
 
         <Text style={[styles.footerNote, { color: colors.textMuted }]}>
-          Reflexão Diária{"\n"}Versão 1.0.0
+          Inspira {"\n"}Versão 1.0.0
         </Text>
       </ScrollView>
     </SafeAreaView>

@@ -82,7 +82,7 @@ export function HistoryScreen() {
           <Text style={[styles.emptySubtitle, { color: colors.textMuted }]}>
             {filter === "favorites"
               ? "Toque no coração durante a leitura para guardar uma passagem aqui."
-              : "As passagens que você sortear aparecerão aqui para você reler quando quiser."}
+              : "Suas mensagens aparecerão aqui para você reler quando quiser."}
           </Text>
         </View>
       ) : (

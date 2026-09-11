@@ -35,17 +35,17 @@ export function HomeScreen() {
         </View>
 
         <Text style={[styles.eyebrow, { color: colors.textMuted }]}>
-          Reflexão Diária
+          Inspiração Diária
         </Text>
         <Text style={[styles.headline, { color: colors.text }]}>
-          Uma pausa para{"\n"}reflexão e fé
+          Uma pausa para{"\n"}inspiração e fé
         </Text>
         <Text style={[styles.subtext, { color: colors.textMuted }]}>
-          Sorteie uma passagem e deixe que a mensagem de hoje encontre você.
+          Deixe que a mensagem de hoje encontre você.
         </Text>
 
         <PrimaryButton
-          label={isDrawing ? "Sorteando…" : "Sortear"}
+          label={isDrawing ? "Consultando…" : "Consultar"}
           icon="shuffle"
           variant="circular"
           size={170}

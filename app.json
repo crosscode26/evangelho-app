@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "O Evangelho Segundo o Espiritismo",
-    "slug": "evangelho-segundo-o-espiritismo",
+    "name": "Inspira",
+    "slug": "inspira-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,7 +14,7 @@
     "assetBundlePatterns": ["*/"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.evangelho.espiritismo",
+      "bundleIdentifier": "com.app.inspira",
       "infoPlist": {
         "UIBackgroundModes": ["audio"],
         "NSUserNotificationsUsageDescription": "Usamos notificações para lembrar você da leitura diária."
@@ -25,7 +25,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FAF6F0"
       },
-      "package": "com.evangelho.espiritismo",
+      "package": "com.app.inspira",
       "permissions": ["SCHEDULE_EXACT_ALARM", "RECEIVE_BOOT_COMPLETED"]
     },
     "web": {

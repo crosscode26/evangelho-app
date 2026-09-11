@@ -1,7 +1,7 @@
-# O Evangelho Segundo o Espiritismo — App
+# Inspira — App
 
 Aplicativo mobile (React Native + Expo, TypeScript) para leitura e escuta diária de
-passagens de "O Evangelho Segundo o Espiritismo", com sorteio aleatório, player de
+passagens , com sorteio aleatório, player de
 áudio via TTS, notificação diária agendada e histórico de leituras.
 
 ## Como rodar
@@ -37,7 +37,7 @@ src/
     AudioPlayer.tsx          Player TTS: play/pause/stop, velocidade, progresso
     PassageCard.tsx          Card usado na lista de histórico
   screens/
-    HomeScreen.tsx            Tela inicial com "Sortear Mensagem"
+    HomeScreen.tsx            Tela inicial com "Consultar Mensagem"
     ReadingScreen.tsx         Leitura + player + favoritar/compartilhar
     HistoryScreen.tsx         Histórico de sorteios com filtro de favoritos
     SettingsScreen.tsx        Horário do lembrete, tema, tamanho de fonte
