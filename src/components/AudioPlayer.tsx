@@ -17,17 +17,57 @@ const SPEEDS: PlaybackSpeed[] = [1.0, 1.25, 1.5];
 // on every platform.
 const ESTIMATED_WPM = 155;
 
+// Escolhe a melhor voz em português disponível no aparelho.
+// Android: vozes de "rede" do Google (identifier contém "network") soam bem
+// mais naturais que as vozes locais compactas.
+// iOS: vozes com quality "Enhanced" (Siri aprimorada) soam mais naturais que
+// as "Default".
+function pickBestPortugueseVoice(voices: Speech.Voice[]): string | undefined {
+  const ptVoices = voices.filter((v) => v.language?.toLowerCase().startsWith("pt"));
+  if (ptVoices.length === 0) return undefined;
+
+  // Preferência: pt-BR antes de outras variantes (pt-PT etc.)
+  const ptBR = ptVoices.filter((v) => v.language?.toLowerCase() === "pt-br");
+  const pool = ptBR.length > 0 ? ptBR : ptVoices;
+
+  if (Platform.OS === "ios") {
+    const enhanced = pool.find((v) => v.quality === Speech.VoiceQuality.Enhanced);
+    return (enhanced ?? pool[0]).identifier;
+  }
+
+  // Android: procura identificadores de vozes de rede (mais naturais)
+  const network = pool.find((v) => v.identifier?.toLowerCase().includes("network"));
+  return (network ?? pool[0]).identifier;
+}
+
 export function AudioPlayer({ text }: AudioPlayerProps) {
   const { colors } = useAppTheme();
   const [state, setState] = useState<PlaybackState>("idle");
   const [speed, setSpeed] = useState<PlaybackSpeed>(1.0);
   const [progress, setProgress] = useState(0); // 0 to 1
+  const [voiceId, setVoiceId] = useState<string | undefined>(undefined);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startedAtRef = useRef<number>(0);
   const estimatedDurationMsRef = useRef<number>(0);
   const pausedElapsedRef = useRef<number>(0);
 
   const canPause = Platform.OS === "ios"; // expo-speech pause/resume is not reliable on Android
+
+  // Busca a melhor voz pt disponível assim que o componente monta
+  useEffect(() => {
+    let isMounted = true;
+    Speech.getAvailableVoicesAsync()
+      .then((voices) => {
+        if (!isMounted) return;
+        setVoiceId(pickBestPortugueseVoice(voices));
+      })
+      .catch(() => {
+        // Se falhar, segue sem voice explícita (usa o padrão do sistema)
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const clearProgressTimer = useCallback(() => {
     if (intervalRef.current) {
@@ -72,6 +112,7 @@ export function AudioPlayer({ text }: AudioPlayerProps) {
 
       Speech.speak(text, {
         language: "pt-BR",
+        voice: voiceId,
         rate: fromSpeed,
         onDone: () => {
           clearProgressTimer();
@@ -90,7 +131,7 @@ export function AudioPlayer({ text }: AudioPlayerProps) {
       setState("playing");
       startProgressTimer();
     },
-    [speed, text, estimateDuration, startProgressTimer, clearProgressTimer]
+    [speed, text, voiceId, estimateDuration, startProgressTimer, clearProgressTimer]
   );
 
   const togglePlayPause = useCallback(() => {

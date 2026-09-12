@@ -1,10 +1,13 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   Pressable,
+  LayoutAnimation,
+  Platform,
+  UIManager,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRoute, useNavigation } from "@react-navigation/native";
@@ -20,14 +23,19 @@ import { getItemById } from "@/utils/random";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { fonts, readingFontSizes } from "@/theme/typography";
 import { FontSizeOption, RootStackParamList } from "@/types";
-import {Image} from "react-native";
+import { Image } from "react-native";
 
 type ReadingRoute = RouteProp<RootStackParamList, "Reading">;
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 const FONT_STEPS: FontSizeOption[] = ["P", "M", "G", "GG"];
 const CARD_SIZE = 1080; // tamanho final real do card, já no valor de exportação
-const logoImage = require("../../assets/logo.png")
+const logoImage = require("../../assets/logo.png");
+
+// Habilita LayoutAnimation no Android (no iOS já vem ligado)
+if (Platform.OS === "android" && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 export function ReadingScreen() {
   const route = useRoute<ReadingRoute>();
@@ -35,6 +43,7 @@ export function ReadingScreen() {
   const { colors } = useAppTheme();
   const { settings, updateSettings, isFavorite, toggleFavoriteFor } = useAppData();
   const shareCardRef = useRef<ViewShot>(null);
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false);
 
   const item = useMemo(() => getItemById(route.params.itemId), [route.params.itemId]);
   const favorite = item ? isFavorite(item.id) : false;
@@ -61,6 +70,12 @@ export function ReadingScreen() {
   const adjustFontSize = (direction: 1 | -1) => {
     const nextIndex = Math.min(Math.max(currentStepIndex + direction, 0), FONT_STEPS.length - 1);
     updateSettings({ fontSize: FONT_STEPS[nextIndex] });
+  };
+
+  const togglePlayer = () => {
+    // Anima a entrada/saída do player (fade + leve deslize) sem precisar de Animated.Value
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setIsPlayerOpen((prev) => !prev);
   };
 
   // Ajusta o tamanho da fonte do card compartilhável conforme o comprimento do texto,
@@ -117,6 +132,14 @@ export function ReadingScreen() {
               style={favorite ? undefined : styles.heartOutline}
             />
           </Pressable>
+          {/* Toggle do player de áudio: ícone muda de cor/estilo quando o player está aberto */}
+          <Pressable onPress={togglePlayer} hitSlop={10} style={styles.topBarIcon}>
+            <Feather
+              name="volume-2"
+              size={20}
+              color={isPlayerOpen ? colors.accent : colors.textMuted}
+            />
+          </Pressable>
           <Pressable onPress={handleShare} hitSlop={10} style={styles.topBarIcon}>
             <Feather name="share-2" size={20} color={colors.textMuted} />
           </Pressable>
@@ -144,9 +167,13 @@ export function ReadingScreen() {
         </Text>
       </ScrollView>
 
-      <View style={styles.playerWrapper}>
-        <AudioPlayer text={item.content} />
-      </View>
+      {/* Player só é montado (e só existe na árvore) quando o usuário abre;
+          isso garante que o áudio pare sozinho ao fechar, via cleanup do AudioPlayer */}
+      {isPlayerOpen && (
+        <View style={styles.playerWrapper}>
+          <AudioPlayer text={item.content} />
+        </View>
+      )}
 
       {/* Card invisível, fora da tela, usado só para gerar a imagem de compartilhamento */}
       <View style={styles.hiddenCardWrapper} pointerEvents="none">
@@ -192,10 +219,10 @@ export function ReadingScreen() {
               {/* Rodapé Fixo no Fluxo */}
               <View style={styles.shareFooter}>
                 <View style={[styles.shareFooterLine, { backgroundColor: colors.border }]} />
-                <Image 
-                  source={logoImage} 
-                  style={styles.shareFooterLogo} 
-                  resizeMode="contain" 
+                <Image
+                  source={logoImage}
+                  style={styles.shareFooterLogo}
+                  resizeMode="contain"
                 />
                 <Text style={[styles.shareFooterSubtext, { color: colors.textMuted }]}>
                   Sintonize sua intençao e receba o conselho do dia
@@ -301,7 +328,7 @@ const styles = StyleSheet.create({
     paddingTop: 56,
     paddingBottom: 48,
     paddingHorizontal: 72,
-    justifyContent: "space-between", // Separa o conteúdo do rodapé perfeitamente
+    justifyContent: "space-between",
     alignItems: "center",
   },
   shareContent: {

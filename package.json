@@ -21,7 +21,7 @@
     "expo-device": "~57.0.1",
     "expo-font": "~57.0.3",
     "expo-haptics": "~57.0.2",
-    "expo-linear-gradient": "~57.0.1",
+    "expo-linear-gradient": "~57.0.2",
     "expo-notifications": "~57.0.17",
     "expo-sharing": "~57.0.18",
     "expo-speech": "~57.0.2",
@@ -31,11 +31,12 @@
     "react-native": "0.86.3",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-screens": "~4.26.0",
+    "react-native-svg": "15.15.4",
     "react-native-view-shot": "^5.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
-    "@types/react": "~18.2.79",
+    "@types/react": "~19.1.10",
     "babel-plugin-module-resolver": "^5.0.2",
     "babel-preset-expo": "^57.0.11",
     "typescript": "~5.3.3"

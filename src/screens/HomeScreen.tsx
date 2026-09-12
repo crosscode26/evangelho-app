@@ -49,7 +49,7 @@ export function HomeScreen() {
           label={isDrawing ? "Consultando…" : "Consultar"}
           icon="sparkles"
           variant="circular"
-          size={120}
+          size={130}
           onPress={handleDraw}
           disabled={isDrawing}
         />

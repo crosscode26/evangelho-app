@@ -14,8 +14,7 @@ const FONT_OPTIONS: { key: FontSizeOption; label: string }[] = [
   { key: "GG", label: "GG" },
 ];
 
-const THEME_OPTIONS: { key: "light" | "dark" | "system"; label: string }[] = [
-  { key: "system", label: "Sistema" },
+const THEME_OPTIONS: { key: "light" | "dark"; label: string }[] = [
   { key: "light", label: "Claro" },
   { key: "dark", label: "Escuro" },
 ];
@@ -23,8 +22,8 @@ const THEME_OPTIONS: { key: "light" | "dark" | "system"; label: string }[] = [
 const CATEGORY_OPTIONS: { key: ContentCategory; label: string; description: string }[] = [
   { key: "espiritismo", label: "Espiritismo", description: "O Evangelho Segundo o Espiritismo" },
   { key: "biblia", label: "Bíblia", description: "Salmos, Provérbios e Evangelhos" },
-  { key: "filosofia", label: "Filosofia", description: "Estoicos e pensadores clássicos" },
-  { key: "pensadores", label: "Pensadores", description: "Frases de grandes pensadores" },
+  { key: "filosofia", label: "Filosofia", description: "Grandes filosofos" },
+  { key: "pensadores", label: "Pensadores", description: "Grandes pensadores contemporâneos" },
   { key: "reflexoes", label: "Reflexões", description: "Textos autorais do app" },
 ];
 
