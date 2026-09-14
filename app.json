@@ -11,12 +11,16 @@
       "resizeMode": "contain",
       "backgroundColor": "#FAF6F0"
     },
-    "assetBundlePatterns": ["*/"],
+    "assetBundlePatterns": [
+      "*/"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.app.inspira",
       "infoPlist": {
-        "UIBackgroundModes": ["audio"],
+        "UIBackgroundModes": [
+          "audio"
+        ],
         "NSUserNotificationsUsageDescription": "Usamos notificações para lembrar você da leitura diária."
       }
     },
@@ -26,7 +30,10 @@
         "backgroundColor": "#FAF6F0"
       },
       "package": "com.app.inspira",
-      "permissions": ["SCHEDULE_EXACT_ALARM", "RECEIVE_BOOT_COMPLETED"]
+      "permissions": [
+        "SCHEDULE_EXACT_ALARM",
+        "RECEIVE_BOOT_COMPLETED"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -39,6 +46,11 @@
           "color": "#C9A24B"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "b255e794-ff06-40fb-abbc-38e96726722d"
+      }
+    }
   }
 }

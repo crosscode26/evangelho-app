@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AppSettings, HistoryEntry } from "@/types";
+import { AppSettings, ContentCategory, HistoryEntry } from "@/types";
 
 const KEYS = {
   settings: "@evangelho/settings",
@@ -8,19 +8,35 @@ const KEYS = {
   lastItemId: "@evangelho/lastItemId",
 };
 
+const ALL_CATEGORIES: ContentCategory[] = [
+  "espiritismo",
+  "biblia",
+  "filosofia",
+  "pensadores",
+  "reflexoes",
+];
+
 export const defaultSettings: AppSettings = {
   dailyReminderEnabled: false,
   dailyReminderHour: 7,
   dailyReminderMinute: 0,
   fontSize: "M",
-  themePreference: "system",
+  themePreference: "light",
+  activeCategories: ALL_CATEGORIES,
 };
 
 export async function loadSettings(): Promise<AppSettings> {
   try {
     const raw = await AsyncStorage.getItem(KEYS.settings);
     if (!raw) return defaultSettings;
-    return { ...defaultSettings, ...JSON.parse(raw) };
+    const parsed = { ...defaultSettings, ...JSON.parse(raw) };
+    // Salvaguarda extra: se por algum motivo activeCategories vier vazio ou
+    // corrompido de uma versão antiga salva no aparelho, volta pro padrão
+    // completo em vez de deixar o sorteio quebrar.
+    if (!Array.isArray(parsed.activeCategories) || parsed.activeCategories.length === 0) {
+      parsed.activeCategories = ALL_CATEGORIES;
+    }
+    return parsed;
   } catch {
     return defaultSettings;
   }

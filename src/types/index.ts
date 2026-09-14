@@ -39,7 +39,7 @@ export interface AppSettings {
   dailyReminderHour: number;
   dailyReminderMinute: number;
   fontSize: FontSizeOption;
-  themePreference: "light" | "dark" | "system";
+  themePreference: "light" | "dark";
   activeCategories: ContentCategory[];
 }
 

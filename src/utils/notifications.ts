@@ -1,22 +1,76 @@
 import { Platform } from "react-native";
+import Constants, { ExecutionEnvironment } from "expo-constants";
 
-// Desativado temporariamente para compatibilidade total com o Expo Go (SDK 53+)
-// Quando for gerar a versão final para loja (Development Build / APK), basta reativar as chamadas.
 
-export async function ensureNotificationPermission(): Promise<boolean> {
-  console.warn("Notificações desativadas no modo Expo Go.");
-  return false;
+const isExpoGo = Constants.executionEnvironment === ExecutionEnvironment.StoreClient;
+
+let cachedModule: any = null;
+
+function getNotificationsModule(): any {
+  if (isExpoGo) return null;
+  if (cachedModule) return cachedModule;
+  try {
+    // eslint-disable-next-line no-eval
+    cachedModule = eval("require")("expo-notifications");
+    return cachedModule;
+  } catch {
+    return null;
+  }
 }
 
-export async function configureAndroidChannel(): Promise<void> {
-  return;
+let channelConfigured = false;
+
+async function configureAndroidChannel(Notifications: any): Promise<void> {
+  if (Platform.OS !== "android" || channelConfigured) return;
+  await Notifications.setNotificationChannelAsync("daily-reminder", {
+    name: "Lembrete diário",
+    importance: Notifications.AndroidImportance.DEFAULT,
+  });
+  channelConfigured = true;
+}
+
+export async function ensureNotificationPermission(): Promise<boolean> {
+  const Notifications = getNotificationsModule();
+  if (!Notifications) {
+    console.warn("Notificações indisponíveis neste ambiente (Expo Go).");
+    return false;
+  }
+
+  const current = await Notifications.getPermissionsAsync();
+  if (current.granted) return true;
+
+  const requested = await Notifications.requestPermissionsAsync();
+  return !!requested.granted;
 }
 
 export async function scheduleDailyReminder(hour: number, minute: number): Promise<void> {
-  console.warn('Lembrete diário agendado para ${hour}:${minute} (simulado no Expo Go).');
-  return;
+  const Notifications = getNotificationsModule();
+  if (!Notifications) {
+    console.warn(`Lembrete diário ${hour}:${minute} não agendado (indisponível no Expo Go).`);
+    return;
+  }
+
+  await configureAndroidChannel(Notifications);
+
+  
+  await Notifications.cancelAllScheduledNotificationsAsync();
+
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Inspira",
+      body: "Sua mensagem de hoje está esperando por você.",
+      data: { type: "daily-draw" },
+    },
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes?.DAILY ?? "daily",
+      hour,
+      minute,
+    },
+  });
 }
 
 export async function cancelDailyReminder(): Promise<void> {
-  return;
+  const Notifications = getNotificationsModule();
+  if (!Notifications) return;
+  await Notifications.cancelAllScheduledNotificationsAsync();
 }

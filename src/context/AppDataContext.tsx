@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState, useCallback, useMemo } from "react";
 import {
   defaultSettings,
   loadSettings,
@@ -41,6 +41,12 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [lastItemId, setLastItemId] = useState<number | null>(null);
 
+ 
+  const settingsRef = useRef(settings);
+  useEffect(() => {
+    settingsRef.current = settings;
+  }, [settings]);
+
   useEffect(() => {
     let isMounted = true;
     (async () => {
@@ -53,6 +59,7 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
         ]);
         if (isMounted) {
           setSettings(loadedSettings);
+          settingsRef.current = loadedSettings;
           setHistory(loadedHistory);
           setFavorites(loadedFavorites);
           setLastItemId(loadedLastId);
@@ -97,35 +104,31 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
   );
 
   const updateSettings = useCallback(async (partial: Partial<AppSettings>) => {
-    setSettings((prevSettings) => {
-      const updated = { ...prevSettings, ...partial };
-      
-      // Salva em background
-      saveSettings(updated).catch((err) => console.error("Erro ao salvar configurações:", err));
+    const updated = { ...settingsRef.current, ...partial };
+    setSettings(updated);
+    settingsRef.current = updated;
+    saveSettings(updated).catch((err) => console.error("Erro ao salvar configurações:", err));
 
-      // Gerencia notificações
-      if (
-        partial.dailyReminderEnabled !== undefined ||
-        partial.dailyReminderHour !== undefined ||
-        partial.dailyReminderMinute !== undefined
-      ) {
-        if (updated.dailyReminderEnabled) {
-          ensureNotificationPermission().then((granted) => {
-            if (granted) {
-              scheduleDailyReminder(updated.dailyReminderHour, updated.dailyReminderMinute);
-            } else {
-              const reverted = { ...updated, dailyReminderEnabled: false };
-              setSettings(reverted);
-              saveSettings(reverted);
-            }
-          });
-        } else {
-          cancelDailyReminder();
-        }
+    const touchesReminder =
+      partial.dailyReminderEnabled !== undefined ||
+      partial.dailyReminderHour !== undefined ||
+      partial.dailyReminderMinute !== undefined;
+
+    if (!touchesReminder) return;
+
+    if (updated.dailyReminderEnabled) {
+      const granted = await ensureNotificationPermission();
+      if (granted) {
+        await scheduleDailyReminder(updated.dailyReminderHour, updated.dailyReminderMinute);
+      } else {
+        const reverted = { ...updated, dailyReminderEnabled: false };
+        setSettings(reverted);
+        settingsRef.current = reverted;
+        await saveSettings(reverted);
       }
-
-      return updated;
-    });
+    } else {
+      await cancelDailyReminder();
+    }
   }, []);
 
   const clearAllHistory = useCallback(async () => {
@@ -133,7 +136,7 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
     setHistory([]);
   }, []);
 
-  // Memoização do objeto de valor para evitar re-renders na árvore inteira de componentes
+  
   const value = useMemo<AppDataContextValue>(
     () => ({
       isReady,

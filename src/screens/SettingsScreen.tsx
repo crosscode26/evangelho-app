@@ -22,7 +22,7 @@ const THEME_OPTIONS: { key: "light" | "dark"; label: string }[] = [
 const CATEGORY_OPTIONS: { key: ContentCategory; label: string; description: string }[] = [
   { key: "espiritismo", label: "Espiritismo", description: "O Evangelho Segundo o Espiritismo" },
   { key: "biblia", label: "Bíblia", description: "Salmos, Provérbios e Evangelhos" },
-  { key: "filosofia", label: "Filosofia", description: "Grandes filosofos" },
+  { key: "filosofia", label: "Filosofia", description: "Grandes filósofos" },
   { key: "pensadores", label: "Pensadores", description: "Grandes pensadores contemporâneos" },
   { key: "reflexoes", label: "Reflexões", description: "Textos autorais do app" },
 ];
