@@ -41,7 +41,6 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [lastItemId, setLastItemId] = useState<number | null>(null);
 
- 
   const settingsRef = useRef(settings);
   useEffect(() => {
     settingsRef.current = settings;
@@ -64,6 +63,17 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
           setFavorites(loadedFavorites);
           setLastItemId(loadedLastId);
           setIsReady(true);
+
+          // Sincroniza e reagenda o lembrete diário na inicialização se estiver ativo
+          if (loadedSettings.dailyReminderEnabled) {
+            const granted = await ensureNotificationPermission();
+            if (granted) {
+              await scheduleDailyReminder(
+                loadedSettings.dailyReminderHour,
+                loadedSettings.dailyReminderMinute
+              );
+            }
+          }
         }
       } catch (error) {
         console.error("Erro ao carregar dados iniciais:", error);
@@ -136,7 +146,6 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
     setHistory([]);
   }, []);
 
-  
   const value = useMemo<AppDataContextValue>(
     () => ({
       isReady,

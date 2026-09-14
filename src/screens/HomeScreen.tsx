@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useAppTheme } from "@/context/ThemeContext";
@@ -7,7 +8,6 @@ import { useAppData } from "@/context/AppDataContext";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { fonts } from "@/theme/typography";
 import { RootStackParamList } from "@/types";
-
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
@@ -29,9 +29,17 @@ export function HomeScreen() {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: colors.background }]}
+      edges={["top", "left", "right"]}
+    >
       <View style={styles.content}>
-        <View style={[styles.emblem, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}>
+        <View
+          style={[
+            styles.emblem,
+            { backgroundColor: colors.surfaceAlt, borderColor: colors.border },
+          ]}
+        >
           <Text style={styles.emblemGlyph}>✦</Text>
         </View>
 

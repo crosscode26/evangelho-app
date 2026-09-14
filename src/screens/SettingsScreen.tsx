@@ -1,5 +1,14 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView, Switch, Pressable, Platform, ScrollView } from "react-native";
+import React, { useMemo, useRef, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  Platform,
+  Switch,
+  } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { Feather } from "@expo/vector-icons";
 import { useAppTheme } from "@/context/ThemeContext";

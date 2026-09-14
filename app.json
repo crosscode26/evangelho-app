@@ -12,7 +12,7 @@
       "backgroundColor": "#FAF6F0"
     },
     "assetBundlePatterns": [
-      "*/"
+      "*/*"
     ],
     "ios": {
       "supportsTablet": true,
@@ -32,7 +32,8 @@
       "package": "com.app.inspira",
       "permissions": [
         "SCHEDULE_EXACT_ALARM",
-        "RECEIVE_BOOT_COMPLETED"
+        "RECEIVE_BOOT_COMPLETED",
+        "POST_NOTIFICATIONS"
       ]
     },
     "web": {
@@ -43,7 +44,8 @@
         "expo-notifications",
         {
           "icon": "./assets/notification-icon.png",
-          "color": "#C9A24B"
+          "color": "#C9A24B",
+          "sounds": []
         }
       ]
     ],
